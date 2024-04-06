@@ -38,3 +38,6 @@ This project introduces a snake game designed for the BeagleBone Black, utilizin
 - If using the shared library in Ubuntu:
   - Copy the `libsnake_game_button.so` to `/usr/lib` by executing `cp -rf ./libsnake_game_button.so /usr/lib`.
   - Execute `./main` to launch the game.
+  
+## Video Demo
+[Watch the video demo](https://youtu.be/HfiNwI9zWKE)
