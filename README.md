@@ -27,7 +27,7 @@ This project introduces a snake game designed for the BeagleBone Black, utilizin
 ### On Ubuntu:
 - In `./button driver`, execute `make` to construct the `driver_button.ko` file and transfer it to the BeagleBone.
 - In `./ssd1306 driver`, execute `make` to build `ssd1306_oled_driver.ko` and transfer it to the BeagleBone.
-- In '.':
+- In `.`:
   - For using the static library: Execute `make sta_all` to build the executable file named `main` in `bin/` and send it to the BeagleBone.
   - For using the shared library: Execute `sudo make share_all` to construct the `main` executable file in `bin/` and the shared library named `libsnake_game_button.so`. Transfer both files to the BeagleBone.
 
