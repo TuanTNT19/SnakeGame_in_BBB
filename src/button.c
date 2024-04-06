@@ -60,6 +60,7 @@ int Button_waitForAnyKey(int fd, char *buff, size_t size) {
     return pressed;
 }
 
+//check keypress and return direction
 int Button_KeysPressed_to_Direction(int fd, char *buff, size_t size, int direction)
 {
     int pressed;
