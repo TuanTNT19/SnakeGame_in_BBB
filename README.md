@@ -40,4 +40,4 @@ This project introduces a snake game designed for the BeagleBone Black, utilizin
   - Execute `./main` to launch the game.
   
 ## Video Demo
-[Watch the video demo](https://youtu.be/HfiNwI9zWKE)
+[Watch the video demo](https://youtu.be/gbpuqwJCehI)
