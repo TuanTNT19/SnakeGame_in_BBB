@@ -21,7 +21,6 @@ static void __exit Huy(void);
 static int      m_open(struct inode *inode, struct file *file);
 static int      m_release(struct inode *inode, struct file *file);
 static ssize_t  m_read(struct file *filp, char __user *user_buf, size_t size,loff_t * offset);
-static ssize_t  m_write(struct file *filp, const char *user_buf, size_t size, loff_t * offset);
 static unsigned int m_poll(struct file *file, poll_table *wait);
 
 typedef struct {
@@ -74,7 +73,7 @@ static struct platform_driver mypdrv = {
     },
 };
 
-MODULE_DEVICE_TABLE(of, gpiod_dt_ids);
+//MODULE_DEVICE_TABLE(of, gpiod_dt_ids);
 
 static struct file_operations fops =
 {
@@ -262,21 +261,20 @@ static ssize_t m_read(struct file *filp, char __user *user_buf, size_t size, lof
 {
     ssize_t result = 0;
 
-    // Chờ cho đến khi có sự kiện (nút được nhấn)
+    // wait until button press
     wait_event_interruptible(mdev.read_queue, mdev.is_event_available);
 
-    // Kiểm tra xem đã có dữ liệu để đọc chưa
+    // check data avaiable
     if (!mdev.is_event_available) {
-        // Nếu không có sự kiện nào mới, trả về 0 để báo hiệu EOF (kết thúc file)
         return 0;
     }
 
-    // Copy dữ liệu từ kernel buffer sang user buffer
+    // Copy data from kernel buff to user buff
     if (copy_to_user(user_buf, kernel_buff, 1)) {
         // Trả về lỗi nếu không copy được
         result = -EFAULT;
     } else {
-        // Đánh dấu đã đọc xong và trả về số byte đã đọc
+        // read data done
         mdev.is_event_available = false; // Reset lại cờ sự kiện
         result = 1; // Trả về số byte đã copy
     }

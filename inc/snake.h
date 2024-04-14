@@ -19,6 +19,7 @@ int Snake_collisionDetection(int snakeXY[][SNAKE_ARRAY_SIZE], int ScreenWidth, i
 void Snake_loadSnake(int fd, int snakeXY[][SNAKE_ARRAY_SIZE], int snakeLength);
 void Snake_refreshInfoBar(int fd, int score, int speed) ;
 void Snake_gameOverScreen(int fds, int fdb, char *buff, size_t size) ;
+void Snake_gameWin(int fds, int fdb, char *buff, size_t size) ;
 void Snake_startGame(int fds, int fdb, char *buff, size_t size, int snakeXY[][SNAKE_ARRAY_SIZE], int foodXY[], int ScreenWidth, int ScreenHeight, int snakeLength, int direction, int score, int speed) ;
 void Snake_loadGame(int fds, int fdb, char *buff, size_t size) ;
 

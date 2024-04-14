@@ -171,6 +171,16 @@ void Snake_gameOverScreen(int fds, int fdb, char *buff, size_t size) {
 
 }
 
+//Display you win
+void Snake_gameWin(int fds, int fdb, char *buff, size_t size) {
+    OLED_SetCursor(fds, 25, 3);
+    OLED_Display(fds, "YOU WIN!");
+    OLED_SetCursor(fds, 10, 4);
+    OLED_Display(fds, "PRESS TO CONTINUE");
+    Button_waitForAnyKey(fdb, buff, size);
+
+}
+
 
 void Snake_startGame(int fds, int fdb, char *buff, size_t size, int snakeXY[][SNAKE_ARRAY_SIZE], int foodXY[], int ScreenWidth, int ScreenHeight, int snakeLength, int direction, int score, int speed) {
     int gameOver = 0;
@@ -233,6 +243,10 @@ void Snake_startGame(int fds, int fdb, char *buff, size_t size, int snakeXY[][SN
     switch (gameOver) {
         case 1:
             Snake_gameOverScreen(fds, fdb, buff, size);
+            break;
+    
+        case 2:
+            Snake_gameWin(fds, fdb, buff, size);
             break;
     }
 
