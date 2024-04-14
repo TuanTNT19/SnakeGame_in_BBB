@@ -65,7 +65,6 @@ static int ssd1306_probe(struct i2c_client *client, const struct i2c_device_id *
 	module_ssd->line_num = 0;
 	module_ssd->cursor_position = 0;
 	module_ssd->font_size = SSD1306_DEF_FONT_SIZE;
-	i2c_set_clientdata(client, module_ssd);
 
 	ssd1306_display_init(module_ssd);
 	ssd1306_set_cursor(module_ssd, 3, 2);
@@ -81,7 +80,6 @@ static int ssd1306_probe(struct i2c_client *client, const struct i2c_device_id *
 static int ssd1306_remove(struct i2c_client *client)
 {
     pr_info("Starting remove process\n");
-    module_ssd = i2c_get_clientdata(client);
     ssd1306_clear_full(module_ssd);
     ssd1306_set_cursor(module_ssd, 3, 0);
     ssd1306_print_string(module_ssd, "Thanks for visiting. Good bye !");
@@ -131,7 +129,6 @@ static ssize_t m_write(struct file *filp, const char __user *user_buf, size_t si
     else if (!strncmp("cursor", kernel_buff, 6)){
       uint8_t x, y;
       char temp[8];
-    // Sử dụng %hhu để đọc giá trị vào biến uint8_t
       sscanf(kernel_buff, "%s %hhu %hhu", temp, &x, &y);
       ssd1306_set_cursor(module_ssd, y, x);
     }
