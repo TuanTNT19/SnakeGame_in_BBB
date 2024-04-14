@@ -29,7 +29,7 @@ This project introduces a snake game designed for the BeagleBone Black, utilizin
 - Run `sudo insmod ssd1306_oled_driver.ko` to insert the SSD1306 module into the kernel.
 - If using the static library in Ubuntu: Execute `./main` to launch the game.
 - If using the shared library in Ubuntu:
-  - Copy the `libsnake_game_keyboard.so` to `/usr/lib` by executing `cp -rf ./libsnake_game_keyboard.so /usr/lib`.
+  - Copy the `libsnake_game_keyboard.so` to `/usr/lib` by executing `sudo cp -rf ./libsnake_game_keyboard.so /usr/lib`.
   - Execute `./main` to launch the game.
   
 

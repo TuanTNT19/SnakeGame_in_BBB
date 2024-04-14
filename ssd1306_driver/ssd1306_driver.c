@@ -11,7 +11,6 @@ static void __exit Huy(void);
 
 static int      m_open(struct inode *inode, struct file *file);
 static int      m_release(struct inode *inode, struct file *file);
-static ssize_t  m_read(struct file *filp, char __user *user_buf, size_t size,loff_t * offset);
 static ssize_t  m_write(struct file *filp, const char *user_buf, size_t size, loff_t * offset);
 
 struct ssd1306_i2c_module *module_ssd;
@@ -33,8 +32,6 @@ static const struct of_device_id ssd1306_of_match[] = {
     {}
 };
 
-MODULE_DEVICE_TABLE(of, ssd1306_of_match);
-
 static struct i2c_driver ssd1306_driver = {
     .probe = ssd1306_probe,
     .remove = ssd1306_remove,
@@ -48,7 +45,6 @@ static struct i2c_driver ssd1306_driver = {
 static struct file_operations fops =
 {
     .owner      = THIS_MODULE,
-    .read       = m_read,
     .write      = m_write,
     .open       = m_open,
     .release    = m_release,
@@ -113,31 +109,6 @@ static int m_release(struct inode *inode, struct file *file)
     return 0;
 }
 
-/* This function will be called when we read the Device file */
-static ssize_t m_read(struct file *filp, char __user *user_buf, size_t size, loff_t *offset)
-{
-    pr_info("System call read() called...!!!\n");
-
-    // Check if the offset is beyond the end of the buffer
-    if (*offset >= mdev.size) {
-        return 0; // End of file
-    }
-
-    // Determine how many bytes to read (up to the end of the buffer)
-    size_t bytes_to_read = min(size, (size_t)(mdev.size - *offset));
-
-    // Copy data from kernel space to user space
-    if (copy_to_user(user_buf, kernel_buff + *offset, bytes_to_read) != 0) {
-        pr_err("Can not copy kernel to user\n");
-        return -EFAULT;
-    }
-
-    // Update the offset and return the number of bytes read
-    *offset += bytes_to_read;
-
-    //kfree(mdev.k_buff);
-    return bytes_to_read;
-}
 
 /* This function will be called when we write the Device file */
 static ssize_t m_write(struct file *filp, const char __user *user_buf, size_t size, loff_t *offset)
@@ -179,7 +150,7 @@ static ssize_t m_write(struct file *filp, const char __user *user_buf, size_t si
 
 static int __init Khoitao(void)
 {
-     if (alloc_chrdev_region(&mdev.dev_num, 0, 1, "my-cdevt"))
+    if (alloc_chrdev_region(&mdev.dev_num, 0, 1, "my-cdevt"))
     {
         pr_err("ERROR: Can not make number device\n");
         return -1;
@@ -248,7 +219,6 @@ static void __exit Huy(void) {
     pr_info("End Huy\n");
 }
 
-//module_i2c_driver(ssd1306_driver);
 module_init(Khoitao);
 module_exit(Huy);
 
