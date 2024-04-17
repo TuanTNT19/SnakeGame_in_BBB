@@ -207,31 +207,25 @@ void ssd1306_clear_full(struct ssd1306_i2c_module *module)
 int ssd1306_display_init(struct ssd1306_i2c_module *module)
 {
 	msleep(100);
+   
 	ssd1306_write(module, true, 0xAE); // Entire Display OFF
-	ssd1306_write(module, true, 0xD5); // Set Display Clock Divide Ratio and Oscillator Frequency
-	ssd1306_write(module, true, 0x80); // Default Setting for Display Clock Divide Ratio and Oscillator Frequency that is recommended
-	ssd1306_write(module, true, 0xA8); // Set Multiplex Ratio
-	ssd1306_write(module, true, 0x3F); // 64 COM lines
-	ssd1306_write(module, true, 0xD3); // Set display offset
-	ssd1306_write(module, true, 0x00); // 0 offset
-	ssd1306_write(module, true, 0x40); // Set first line as the start line of the display
-	ssd1306_write(module, true, 0x8D); // Charge pump
-	ssd1306_write(module, true, 0x14); // Enable charge dump during display on
-	ssd1306_write(module, true, 0x20); // Set memory addressing mode
-	ssd1306_write(module, true, 0x00); // Horizontal addressing mode
-	ssd1306_write(module, true, 0xA1); // Set segment remap with column address 127 mapped to segment 0
-	ssd1306_write(module, true, 0xC8); // Set com output scan direction, scan from com63 to com 0
-	ssd1306_write(module, true, 0xDA); // Set com pins hardware configuration
-	ssd1306_write(module, true, 0x12); // Alternative com pin configuration, disable com left/right remap
-	ssd1306_write(module, true, 0x81); // Set contrast control
-	ssd1306_write(module, true, 0x80); // Set Contrast to 128
-	ssd1306_write(module, true, 0xD9); // Set pre-charge period
-	ssd1306_write(module, true, 0xF1); // Phase 1 period of 15 DCLK, Phase 2 period of 1 DCLK
-	ssd1306_write(module, true, 0xDB); // Set Vcomh deselect level
-	ssd1306_write(module, true, 0x20); // Vcomh deselect level ~ 0.77 Vcc
-	ssd1306_write(module, true, 0xA4); // Entire display ON, resume to RAM content display
-	ssd1306_write(module, true, 0xA6); // Set Display in Normal Mode, 1 = ON, 0 = OFF
-	ssd1306_write(module, true, 0x2E); // Deactivate scroll
+    ssd1306_write(module, true, 0xA8); // Set Multiplex Ratio
+    ssd1306_write(module, true, 0x3F); // 64 COM lines
+    ssd1306_write(module, true, 0xD3); // Set display offset
+    ssd1306_write(module, true, 0x00); // 0 offset
+    ssd1306_write(module, true, 0x40); // Set first line as the start line of the display
+    ssd1306_write(module, true, 0xA1); // Set segment remap with column address 127 mapped to segment 0
+    ssd1306_write(module, true, 0xC8); // Set com output scan direction, scan from com63 to com 0
+    ssd1306_write(module, true, 0xDA); // Set com pins hardware configuration
+    ssd1306_write(module, true, 0x12); // Alternative com pin configuration, disable com left/right remap
+    ssd1306_write(module, true, 0x81); // Set contrast control
+    ssd1306_write(module, true, 0x7F); // Set Contrast to 128
+    ssd1306_write(module, true, 0xA4); // Entire display ON, resume to RAM content display
+    ssd1306_write(module, true, 0xA6); // Set Display in Normal Mode, 1 = ON, 0 = OFF
+    ssd1306_write(module, true, 0xD5); // Set Display Clock Divide Ratio and Oscillator Frequency
+    ssd1306_write(module, true, 0x80); // Default Setting for Display Clock Divide Ratio and Oscillator Frequency that is recommended
+    ssd1306_write(module, true, 0x8D); //  Charge pump
+    ssd1306_write(module, true, 0x14); // Enable charge dump during display on
 	ssd1306_write(module, true, 0xAF); // Display ON in normal mode
 	ssd1306_set_cursor(module, 0, 0);
 	ssd1306_print_string(module, "WELCOME TO TUANTNT19\n");
